@@ -20,6 +20,9 @@
 	<a href="search.php">search</a>&nbsp &nbsp
 	<a href="hoschange.html">Hostal change</a>
 	<a href="hostel.php">hostel</a>
+	<a href="ranklistgenerate.php">Rank list generate</a>
+	<a href="ranklistdisplay.php">Rank list display</a>
+	<a href="priority1.php">priority</a>
 </div>
 </body>
 </html>
