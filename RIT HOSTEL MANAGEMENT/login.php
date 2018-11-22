@@ -43,7 +43,7 @@ $pass=$_POST['txtpass'];
         print_r($_SESSION);
 		//$_SESSION['name']=$row['name'];
 		//$_SESSION['student']=true;
-		header("location:student/studenthome.html");
+		header("location:student/studenthome.php");
 	}
 		 if($utype=='admin')
 		{
@@ -51,7 +51,7 @@ $pass=$_POST['txtpass'];
         $_SESSION['uname']=$_POST['txtuname'];
 		//$_SESSION['name']=$row['name'];
 		//$_SESSION['student']=true;
-		header("location:admin/adminhome.html");
+		header("location:admin/adminhome.php");
 	}
 	 if($utype=='warden')
 		{
@@ -70,5 +70,6 @@ $pass=$_POST['txtpass'];
 		header("location:hs/hshome.html");
 	}
 }
+mysqli_close($con);
 	?>
 	
