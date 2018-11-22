@@ -10,14 +10,17 @@
 		
 	?>		 
 
-	<a href="ranklistgenerate.php"></a>
-	<a href="priority1.php"></a>
 		<div class="container">
-		<form name="frm1" method ="POST" action="rankpdf.php">
+		<form name="frm1" method ="POST" action="ranklistgenerate.php">
+			<input type="submit" name="subrankgenerate" value="Rank list Generate">
 		<div id="rfm"><h3>RANK LIST</h3></div>
+		<div class="col-md-9" style="overflow-x: auto;">
 		<div class="table-responsive-lg">
-<table class="table table-striped" border=2 align="left" class="tbl" cellpadding="7" cellspacing="2">
+			
+<table class="table table-fixed" border=2 align="left" class="tbl" cellpadding="7" cellspacing="2" >
+	<thead class="thead-dark">
 	<tr>
+		
 		<th>SI.</th>
 		<th>Admission No</th>
 		<th>Name</th>
@@ -27,11 +30,12 @@
 		<th>Merit Metric</th>
 		<th>Distance & merit metric</th>
 		<th>Admission status</th>
-		<th>Final rank</th>
+		
 	</tr>
+	</thead>
 	<?php
 	include("../connection.php");
-	$qry_rank="select * from hostel_stud_reg hsr,stud_details sd where sd.admissionno=hsr.ADMNO order by hos_rank desc";
+	$qry_rank="select * from hostel_stud_reg hsr,stud_details sd where sd.admissionno=hsr.ADMNO and hsr.admn_status in ('submitted') order by hos_rank desc";
 	//print_r($qry_rank);
 	/*$qry_rank="select distinct * from hostel_stud_reg hsr,hostel_student_details hsd where (select name from stud_details sd where sd.admissionno=hsr.ADMNO)and hsr.admn_status in ('submitted','allocated') or hsd.ADMNO=hsr.ADMNO";*/
 	/*"select * from hostel_student_details,hostel_stud_reg,stud_details where ";*/
@@ -41,8 +45,14 @@ if ($rec==0) {
 	echo '<h3>No records found</h3>';
 }
 $i=1;
+?>
+<tr>
+	<tbody style='height:500px;display:block;overflow-y:scroll'>
+
+<?php
 while ( $row= mysqli_fetch_assoc($res_rank)) {?>
 	<tr>
+		
 				<td><?php echo $i++;?></td>
 				<td> <?php echo $row['ADMNO'];?></td>
 			 
@@ -50,18 +60,22 @@ while ( $row= mysqli_fetch_assoc($res_rank)) {?>
 			 
 				<td> <?php echo $row['distance'];?></td>
 				<td> <?php echo $row['distance_metric'];?></td>
-				<td> <?php echo $row['rank'];?></td>
+				<td> <?php echo $row['Entrance_rank'];?></td>
 				<td><?php echo $row['rank_metric'];?></td>
 				<td> <?php echo $row['hos_rank'];?></td>
 				<td> <?php echo $row['admn_status'];?></td>
-				<td><?php echo $row['final_rank'];?></td>
+				
 			</tr>
 			<?php }
 			
 			mysqli_close($con);
  			?>
+ 			</tbody>
+ 			</tr>
 		</table>
-	</div>
+	
+</div>
+</div>
 </form>
 </div>
 </body>
