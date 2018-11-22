@@ -12,10 +12,10 @@ while ($row=mysqli_fetch_assoc($res_vancancy)) {
 	$tot_vacancy_LH+=$row['vacancy'];
 }
 $p1vacancy=(20/100)*$tot_vacancy_LH;
-echo "percentage=".$p1vacancy;
+//echo "percentage=".$p1vacancy;
 /*..............................................LADIES............................................*/
 while ($i<=$p1vacancy) {
-	echo $i;
+	//echo $i;
 
 /*...............................................CENTRAL GOVT NOMINEES..............................................*/
 $qry_central="select ADMNO from stud_details sd,hostel_stud_reg hsr where hsr.admn_status='submitted' and hsr.priority1=1 and sd.admissionno=hsr.ADMNO and sd.quota in ('central') and gender='F' order by hos_rank ";

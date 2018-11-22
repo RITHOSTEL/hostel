@@ -34,7 +34,7 @@
 			
 			
 		<td> <input type="text" id="txthosvacncy" name="txthosvacncy" placeholder="Enter the No. of vacancy"></td>
-		<td><input type="submit" name="btnsubmit" value="Submit" onClick="window.location.href=window.location.href"></td>
+		<td><input type="submit" name="btnsubmit" value="Submit" onClick="window.location.reload()"></td>
 </tr>
 
 		</div>
@@ -92,11 +92,11 @@ if(!empty($_GET)) {
 $qry_up="update hostel_rit set VACANCY='".$vacancy."' where HOSNAME='".$_GET['hname']."'";
 $res_up=mysqli_query($con,$qry_up);
 if ($res_up) {
-	echo '<script type="text/javascript">alert("Succefully updated the vancancy of '.$_GET['hname'].' as '.$vacancy.'");</script>';
+	echo '<script type="text/javascript">alert("Succefully updated the vancancy of '.$_GET['hname'].' as '.$vacancy.'");window.location=\'hostel.php\';</script>';
 }
 
 else{
-	echo '<script type="text/javascript">alert("Failed to update the vancancy of '.$_GET['hname'].' as '.$vacancy.'");</script>';
+	echo '<script type="text/javascript">alert("Failed to update the vancancy of '.$_GET['hname'].' as '.$vacancy.'");window.location=\'hostel.php\';</script>';
 }
 
 
