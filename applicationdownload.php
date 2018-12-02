@@ -1,14 +1,17 @@
 <?php
 $msg='';
+$sex="";
 session_start();
 
 if (!isset($_SESSION['uname'])) 
 {
   
-  echo '<script type="text/javascript">alert("You are out of session..Please login again");</script>';
+  //echo '<script type="text/javascript">alert("You are out of session..Please login again");</script>';
+	//session_start();
  }
  else{
  $uname=$_SESSION['uname'];
+// echo $uname;
  include("../connection.php");
 /*$qry_check="select * from hostel_stud_reg where admn_status='submitted' and ADMNO='".$uname."'";
 $res_check=mysqli_query($con,$qry_check);
@@ -50,8 +53,7 @@ else{
         }
 	
 }
-echo "<br>".$p1."<br>".$p2a."<br>".$p2d."<br>".$p2e;
-echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
+
 }/// this for else codition to check the sesson variable ha svalue or not 
 ?>
 
@@ -63,13 +65,15 @@ echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
 </head>
 <body id="homebody">
 	<?php
-	include("../header.html");
+	include("studenthome.php");
 		
 	?>
 	<div class="container">
 		
 	<form name="frm1" method ="POST" action="applicationsave.php">
 		<div id="rfm"><h2>APPLICATION FORM</h2></div>
+		<div>
+			
 	<h3><?php
 	 if($msg!='')
 	{
@@ -84,7 +88,18 @@ echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
 		<div class="table-responsive-lg">
 <table class="table table-striped" border=1 align="left" class="tbl" cellpadding="7" cellspacing="2">
 	
- 
+
+<tr><td align="center" colspan="3">
+ <h2><B>RAJIV GANDHI INSTITUTE OF TECHNOLOGY</B></h2>
+<br>(Govt.Engineering College)Kottayam-686 001
+<br><b>Application for admission to Mens/Ladies Hostels for the period 2018-19
+<br>(For First Year and Lateral Entry students)</b>
+
+		
+	
+	</td>
+</tr>
+
 <tr>
 		<td>Admission No</td>
 		<td ><?php echo $admn ?> </td>
@@ -107,7 +122,7 @@ echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
 </tr>
 <tr>
 	<td>Gender</td>
-	<td><input type="radio" name="gender" <?php if($gender=="M"){ echo "checked";}?>  value="M">Male &nbsp<input type="radio" name="gender" <?php if($gender=="F"){ echo "checked";}?> value="F" >Female &nbsp<input type="radio" name="gender"  value="others">Others</td>
+	<td><input type="text" name="gender" <?php if($gender=="F"){ $sex="Female";} if($gender=="M"){ $sex="Male";}?> value=<?php  echo $sex; ?>  ></td>
 	
 </tr>
 <tr><td>Date of birth</td>
@@ -155,11 +170,11 @@ echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
 		<th>Priorities</th><th>Please tick</th></tr>
 			<tr>
 	<TD>Priority I</TD>
-	<td><input type="checkbox" name="prior" value=<?php if($p1==1) echo "checked='checked'";?>></td></tr>
-		<tr><td>Priority II(a)</td><td><input type="checkbox" name="prior" value=<?php if($p2a==1) echo "checked='checked'";?>></td></tr>
-	<tr><td>Priority II(d)</td><td><input type="checkbox" name="prior" value="k"
+	<td><input type="checkbox" name="prior" value="prior"<?php if($p1==1) echo "checked='checked'";?>/></td></tr>
+		<tr><td>Priority II(a)</td><td><input type="checkbox" name="prior" value="prior"<?php if($p2a==1) echo "checked='checked'";?>/></td></tr>
+	<tr><td>Priority II(d)</td><td><input type="checkbox" name="prior" value="prior"
 		<?php if($p2d==1) echo "checked='checked'";?>></td></tr>
-	<tr><td>Priority II(e)</td><td><input type="checkbox" name="prior" value=<?php if($p2e==1) echo "checked='checked'";?>></td></tr>
+	<tr><td>Priority II(e)</td><td><input type="checkbox" name="prior" value="prior"<?php if($p2e==1) echo "checked='checked'";?>/></td></tr>
 	
 </table>
 	</td>
@@ -177,13 +192,16 @@ echo "<br>".$dist."<br>".$income."<br>".$p_mob."<br>".$p2e;;
 	<td>Rank in entrance Exam</td>
 	<td><input type="text" name="txtrank" value=<?php echo $rank ?>></td>
 </tr>
-
-<!--<tr align="center" rowspan="5">
-	<br><td  colspan="3" ><input type="submit" name="btsub" value="submit">
-</td>
-<td colspan="3"><input type="Reset" name="btReset" value="Reset"></td>
-	</tr></br>-->
 </table>
+
+		<ol type="1">
+		<li>I hereby declare that all information given above are true to the best of my knowledge and beleief.</li>
+		<li>If admitted,I agree to abide by the rules and regulations of the hostel.</li>
+		<li>If any information given is bound to be incorrect,I understand that the hostel admission will be cancelled and disciplinary action will be taken.</li>
+	</ol>Signature of student<br>Date   &nbsp   &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp     												 Name and signature of Parent
+	                                                                           
+
+</div>
 </div>
 </form>
 </div>
