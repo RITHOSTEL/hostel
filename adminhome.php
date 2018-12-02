@@ -33,7 +33,12 @@
 
 </head>
 <body >
-	
+	<?php
+  session_start();
+  if (isset($_SESSION['uname'])) { 
+    ?>
+   
+ 
 	<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header" >
@@ -57,11 +62,11 @@
       </li >
 
 
-	<li><a href="studdetails.html">Student</a></li>
+	<li><a href="hosteller.php">Hosteller</a></li>
 	<li><a href="feedetails.html">Fee</a> </li>
 	<li><a href="adminnotification.html">Notifications</a></li>
 	<li><a href="certicate.html"> Inmate certificate</a></li>
-	<<li><a href="search.php">Search</a></li>
+	
 
 	<li  class="dropdown">
         <a  class="dropdown-toggle" data-toggle="dropdown" href="#" >Hostel<span class="caret"></span>
@@ -78,7 +83,7 @@
 	
 	<!--<li><a href="ranklistgenerate.php">Rank list generate</a></li>
 	<li><a href="ranklistdisplay.php">Rank list display</a></li>-->
-	<li><a href="priority1.php">priority</a></li>
+	
 
     <ul class="nav navbar-nav navbar-right">
 <form style="color:red" class="navbar-form navbar-left" method="POST"action="search.php">
@@ -96,14 +101,16 @@
 
 
 
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+     <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
       <li><a href="../logout.php"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
     </ul>
   </div>
 </nav>
 
 	<div class="container">
-	
+	<?php
+   }
+   ?>
 </div>
 </body>
 </html>

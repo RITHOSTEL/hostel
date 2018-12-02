@@ -9,7 +9,7 @@
 include("../connection.php");
 
 /*DISTANCE CALCULATION..........................*/
-$qrymin_d="SELECT min(distance) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='F'";
+$qrymin_d="SELECT min(distance) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='M'";
 $resmin_d=mysqli_query($con,$qrymin_d);
 while ( $row= mysqli_fetch_assoc($resmin_d)) {
 $x_min=$row['min(distance)'];
@@ -17,7 +17,7 @@ $x_min=$row['min(distance)'];
 }
 echo "<br>min distance=".$x_min;
 
-$qrymax_d="SELECT max(distance) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='F'";
+$qrymax_d="SELECT max(distance) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='M'";
 $resmax_d=mysqli_query($con,$qrymax_d);
 while ( $row= mysqli_fetch_assoc($resmax_d)) {
 $x_max=$row['max(distance)'];}
@@ -32,7 +32,7 @@ $y1=($y_min+($row['distance']-$x_min)*($y_max-$y_min))/($x_max-$x_min);
 echo "<br>".$y1;
 }
 */
-$qrymin_rank="SELECT min(Entrance_rank) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='F'";
+$qrymin_rank="SELECT min(Entrance_rank) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='M'";
 $resmin_rank=mysqli_query($con,$qrymin_rank);
 while ( $row= mysqli_fetch_assoc($resmin_rank)) {
 $x_min_r=$row['min(Entrance_rank)'];
@@ -40,7 +40,7 @@ $x_min_r=$row['min(Entrance_rank)'];
 }
 //echo "<br>min rank=".$x_min_r;
 
-$qrymax_rank="SELECT max(Entrance_rank) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='F'";
+$qrymax_rank="SELECT max(Entrance_rank) from hostel_stud_reg,stud_details where admn_status='submitted' and gender='M'";
 $resmax_rank=mysqli_query($con,$qrymax_rank);
 while ( $row= mysqli_fetch_assoc($resmax_rank)) {
 $x_max_r=$row['max(Entrance_rank)'];}
@@ -52,7 +52,7 @@ $y_min_r=1;
 $y_max_r=50;
 //doubt on the condition
 /*$qry_rank="select * from stud_details sd,hostel_stud_reg where sd.admissionno=hostel_stud_reg.ADMNO and admn_status='submitted' or admn_status='allocated'" ;*/
-$qry_rank="SELECT * from stud_details sd,hostel_stud_reg where sd.admissionno=hostel_stud_reg.ADMNO and hostel_stud_reg.admn_status='submitted' and gender='F' order by hos_rank" ;
+$qry_rank="SELECT * from stud_details sd,hostel_stud_reg where sd.admissionno=hostel_stud_reg.ADMNO and hostel_stud_reg.admn_status='submitted' and gender='M' order by hos_rank" ;
 $res_rank=mysqli_query($con,$qry_rank);
  while ( $row= mysqli_fetch_assoc($res_rank)) {
 	
@@ -82,7 +82,7 @@ $res_rank=mysqli_query($con,$qry_rank);
 $res_update=mysqli_query($con,$qry_update);
 if ($res_update) {
 	
-	echo '<script type="text/javascript">alert("Ranklist generated");window.location=\'ranklistdisplayLH.php\';</script>';
+	echo '<script type="text/javascript">alert("Ranklist generated");window.location=\'ranklistdisplayMH.php\';</script>';
 }
 else
 {
@@ -101,7 +101,7 @@ $i=0;
 
 //include("../connection.php");
 $tot_vacancy_LH=0;
-$qry_vacancy="SELECT vacancy from hostel_rit where hostype='LH'";
+$qry_vacancy="SELECT vacancy from hostel_rit where hostype='MH'";
 $res_vancancy=mysqli_query($con,$qry_vacancy);
 while ($row=mysqli_fetch_assoc($res_vancancy))
 {
@@ -119,7 +119,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 	
 
 /*...............................................CENTRAL GOVT NOMINEES..............................................*/
-	$qry_central="SELECT ADMNO ,hsr.central from stud_details sd,hostel_stud_reg hsr where hsr.admn_status='submitted' and hsr.priority1=1 and sd.admissionno=hsr.ADMNO and hsr.central=1 and gender='F' order by hos_rank ";
+	$qry_central="SELECT ADMNO ,hsr.central from stud_details sd,hostel_stud_reg hsr where hsr.admn_status='submitted' and hsr.priority1=1 and sd.admissionno=hsr.ADMNO and hsr.central=1 and gender='M' order by hos_rank ";
 	$res_central=mysqli_query($con,$qry_central);
 	$rec=mysqli_num_rows($res_central);
 	if($rec==0)
@@ -134,7 +134,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 			{	
 				$admnNo=$row['ADMNO'];
 				
-				$qry_up_status="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' WHERE ADMNO='".$admnNo."'";
+				$qry_up_status="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' WHERE ADMNO='".$admnNo."'";
 			//	print_r($qry_up_status);
 				$res_up_status=mysqli_query($con,$qry_up_status);
 				/*$qry_final_central="update hostel_stud_reg set final_rank='".$rank."' where ADMNO='".$admnNo."'";
@@ -158,7 +158,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 	/*$qry_ALL="SELECT h.ADMNO,s.name,s.gender,h.sc,h.st,h.ph,h.bpl,h.other_state FROM hostel_stud_reg h,stud_details s where h.admn_status='submitted' and s.admissionno=h.ADMNO and h.priority1=1 and h.sc=1 or h.st=1 or h.ph=1 or h.bpl=1 or h.other_state=1 and s.gender='F' order by hos_rank";*/
 
 	/*$qry_ALL="SELECT h.ADMNO,(SELECT name FROM stud_details WHERE s.admissionno=h.ADMNO and s.gender='F')name,s.gender,h.sc,h.st,h.ph,h.bpl,h.other_state FROM hostel_stud_reg h,stud_details s where h.admn_status='submitted' and h.priority1=1 and h.sc=1 or h.st=1 or h.ph=1 or h.bpl=1 or h.other_state=1  order by hos_rank";*/
-	$qry_ALL= "SELECT h.ADMNO,s.name,h.sc,h.sc,h.st,h.ph,h.bpl,h.other_state from stud_details s,hostel_stud_reg h where s.admissionno=h.ADMNO and gender='F' and h.admn_status='submitted' order by hos_rank";
+	$qry_ALL= "SELECT h.ADMNO,s.name,h.sc,h.sc,h.st,h.ph,h.bpl,h.other_state from stud_details s,hostel_stud_reg h where s.admissionno=h.ADMNO and gender='M' and h.admn_status='submitted' order by hos_rank";
 
 
 	$res_all=mysqli_query($con,$qry_ALL);
@@ -169,7 +169,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 			if ($row['sc']==1) 
 			{
 
-				$qry_up_sc="UPDATE hostel_stud_reg set admn_status='ranked' ,final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_sc="UPDATE hostel_stud_reg set admn_status='ranked' ,final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_sc=mysqli_query($con,$qry_up_sc);
 				if ($res_up_sc) {
 					$rank+=1;
@@ -184,7 +184,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 		{
 			if ($row['st']==1) 
 			{
-				$qry_up_st="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_st="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_st=mysqli_query($con,$qry_up_st);
 				if ($res_up_st) {
 					$rank+=1;
@@ -199,7 +199,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 		{
 			if ($row['ph']==1) 
 			{
-				$qry_up_ph="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_ph="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_ph=mysqli_query($con,$qry_up_ph);
 				if ($res_up_ph) {
 					$rank+=1;
@@ -212,7 +212,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 		{
 			if ($row['bpl']==1) 
 			{
-				$qry_up_bpl="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_bpl="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_bpl=mysqli_query($con,$qry_up_bpl);
 				if ($res_up_bpl) {
 					$rank+=1;
@@ -225,7 +225,7 @@ $p1vacancy=floor((20/100)*$tot_vacancy_LH);
 		{
 			if ($row['other_state']==1) 
 			{
-				$qry_up_os="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_os="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_os=mysqli_query($con,$qry_up_os);
 				if ($res_up_os) {
 					$rank+=1;
@@ -250,14 +250,14 @@ $p1vacancy=$tot_vacancy_LH-$p1vacancy;
 $p1vacancy=floor((30/100)*$p1vacancy);
 //echo '<br> vacancy='.$p1vacancy;
 
-$qry_btech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BTECH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted'order by hos_rank";
+$qry_btech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BTECH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted'order by hos_rank";
 $res_btech_c=mysqli_query($con,$qry_btech_c);
 while ($row=mysqli_fetch_assoc($res_btech_c)) 
 	{
 		$btech_count=$row['count(ADMNO)'];
 		//echo "<br>BTECH count=".$row['count(ADMNO)'];
 	}
-$qry_barch_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BARCH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted' order by hos_rank";
+$qry_barch_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BARCH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted' order by hos_rank";
 $res_barch_c=mysqli_query($con,$qry_barch_c);
 while ($row=mysqli_fetch_assoc($res_barch_c)) 
 	{
@@ -279,7 +279,7 @@ while ($row=mysqli_fetch_assoc($res_barch_c))
 	$barch_vacancy=floor(($barch_count/$total_count)*$p1vacancy);
 	//echo "<br>barch vacancy".$barch_vacancy;
 
-$qrys="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BTECH','BARCH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted' order by hos_rank";
+$qrys="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BTECH','BARCH') AND cd.semid in (1,2) and h.priority2a=1 AND h.admn_status='submitted' order by hos_rank";
 $res_s=mysqli_query($con,$qrys);
 	while ($row=mysqli_fetch_assoc($res_s)) 
 	{
@@ -288,7 +288,7 @@ $res_s=mysqli_query($con,$qrys);
 			//echo'hi';
 			if ($row['courseid']=='BTECH') 
 			{
-				$qry_up_btech="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_btech="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_btech=mysqli_query($con,$qry_up_btech);
 				if ($res_up_btech)
 				{
@@ -307,7 +307,7 @@ $res_s=mysqli_query($con,$qrys);
 			if ($row['courseid']=='BARCH') 
 			{
 
-				$qry_up_barch="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_barch="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_barch=mysqli_query($con,$qry_up_barch);
 				if ($res_up_barch)
 				 {
@@ -497,14 +497,14 @@ $p1vacancy=$tot_vacancy_LH-$p1vacancy;
 $p1vacancy=floor((10/100)*$p1vacancy);
 //echo '<br> vacancy='.$p1vacancy;
 
-$qry_sbtech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BTECH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'";
+$qry_sbtech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BTECH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'";
 $res_sbtech_c=mysqli_query($con,$qry_sbtech_c);
 while ($row=mysqli_fetch_assoc($res_sbtech_c)) 
 	{
 		$sbtech_count=$row['count(ADMNO)'];
 	//	echo "<br>BTECH count=".$row['count(ADMNO)'];
 	}
-$qry_sbarch_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BARCH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'";
+$qry_sbarch_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BARCH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'";
 $res_sbarch_c=mysqli_query($con,$qry_sbarch_c);
 while ($row=mysqli_fetch_assoc($res_sbarch_c)) 
 	{
@@ -521,7 +521,7 @@ while ($row=mysqli_fetch_assoc($res_sbarch_c))
 	$sbarch_vacancy=floor(($tbarch_count/$ttotal_count)*$p1vacancy);
 	//echo "<br>barch vacancy".$sbarch_vacancy;
 
-$qrysp2d="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('BTECH','BARCH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'order BY hos_rank";
+$qrysp2d="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='M' and cd.courseid IN('BTECH','BARCH') AND cd.semid in(3,4) and h.priority2d=1 AND h.admn_status='submitted'order BY hos_rank";
 $res_sp2d=mysqli_query($con,$qrysp2d);
 	while ($row=mysqli_fetch_assoc($res_sp2d)) 
 	{
@@ -530,7 +530,7 @@ $res_sp2d=mysqli_query($con,$qrysp2d);
 			//echo'hi';
 			if ($row['courseid']=='BTECH') 
 			{
-				$qry_up_sbtech="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_sbtech="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_sbtech=mysqli_query($con,$qry_up_sbtech);
 				if ($res_up_sbtech)
 				{
@@ -549,7 +549,7 @@ $res_sp2d=mysqli_query($con,$qrysp2d);
 			if ($row['courseid']=='BARCH') 
 			{
 
-				$qry_up_sbarch="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
+				$qry_up_sbarch="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='M".$rank."' where ADMNO='".$row['ADMNO']."'";
 				$res_up_sbarch=mysqli_query($con,$qry_up_sbarch);
 				if ($res_up_sbarch)
 				 {
@@ -568,187 +568,5 @@ $res_sp2d=mysqli_query($con,$qrysp2d);
 	}
 
 }
-
-
-/*....................................................priority IId...............................................*/
-
-
-/*....................................................priority IIe...............................................*/
-
-
-
-$p1vacancy=$tot_vacancy_LH-$p1vacancy;
-$p1vacancy=floor((5/100)*$p1vacancy);
-//echo '<br> vacancy='.$p1vacancy;
-
-$qry_mtech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('MTECH') AND cd.semid in(1,2) and h.priority2e=1 AND h.admn_status='submitted'";
-$res_mtech_c=mysqli_query($con,$qry_mtech_c);
-while ($row=mysqli_fetch_assoc($res_mtech_c)) 
-	{
-		$mtech_count=$row['count(ADMNO)'];
-		//echo "<br>BTECH count=".$row['count(ADMNO)'];
-	}
-$qry_mca_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('MCA') AND cd.semid in(1,2) and h.priority2e=1 AND h.admn_status='submitted'";
-$res_mca_c=mysqli_query($con,$qry_mca_c);
-while ($row=mysqli_fetch_assoc($res_mca_c)) 
-	{
-		$mca_count=$row['count(ADMNO)'];
-		//echo "<br>BARCH count=".$row['count(ADMNO)'];
-	}
-	if ($p1vacancy>0) {
-		
-
-	$total_count=$mca_count+$mtech_count;
-
-	$mtech_vacancy=floor(($mtech_count/$total_count)*$p1vacancy);
-//	echo "<br>btech vacancy".$mtech_vacancy;
-	$mca_vacancy=floor(($mca_count/$total_count)*$p1vacancy);
-//	echo "<br>barch vacancy".$sbarch_vacancy;
-
-$qrysp2e="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h,stud_details s where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid and s.admissionno=h.ADMNO and gender='F' and cd.courseid IN('MTECH','MCA') AND d.semid in(1,2) and h.priority2d=1 AND h.admn_status='submitted' order by hos_rank";
-$res_sp2e=mysqli_query($con,$qrysp2e);
-	while ($row=mysqli_fetch_assoc($res_sp2e)) 
-	{
-		if($mtech_vacancy>0 and $p1vacancy>0)
-		{
-			//echo'hi';
-			if ($row['courseid']=='MTECH') 
-			{
-				$qry_up_mtech="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
-				$res_up_mtech=mysqli_query($con,$qry_up_mtech);
-				if ($res_up_mtech)
-				{
-					/*echo '<br>Name='.$row['name'];
-					echo"<br>PH=".$row['ADMNO'].'&nbsp rank='.$rank.'&nbsp vacancy='.$p1vacancy.'&nbsp &nbsp..... NMAE='.$row['name'];*/
-					$rank+=1;
-					$mtech_vacancy-=1;
-					$p1vacancy-=1;
-				}
-				
-			}
-		}
-		if($mca_vacancy>0 and $p1vacancy>0)
-		{
-			//echo "hello";
-			if ($row['courseid']=='MCA') 
-			{
-
-				$qry_up_mca="UPDATE hostel_stud_reg set admn_status='ranked',final_rank='L".$rank."' where ADMNO='".$row['ADMNO']."'";
-				$res_up_mca=mysqli_query($con,$qry_up_mca);
-				if ($res_up_mca)
-				 {
-					/*echo '<br>Name='.$row['name'];
-					echo"<br>PH=".$row['ADMNO'].'&nbsp rank='.$rank.'&nbsp vacancy='.$p1vacancy.'&nbsp &nbsp..... NMAE='.$row['name'];*/
-					$rank+=1;
-					$mca_vacancy-=1;
-					$p1vacancy-=1;
-				}
-				
-			}
-		
-		//echo '<br>Name='.$row['name'];
-		}
-	   	
-	   }
-
-}
- 
-/*....................................................priority IIe...............................................*/
-
-
-/*....................................................priority IIf................................................*/
-
-
-
-/*echo '<br> priority 1 vacancy='.$p1vacancy;
-$p1vacancy=floor((5/100)*$p1vacancy);
-echo '<br> vacancy='.$p1vacancy;
-
-$qry_smtech_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h where cc.studid=h.ADMNO and cd.classid=cc.classid  and cd.courseid IN('MTECH') AND cd.semid=3 or cd.semid=4 and h.priority2f=1 AND h.admn_status='submitted'";
-$res_smtech_c=mysqli_query($con,$qry_smtech_c);
-while ($row=mysqli_fetch_assoc($res_smtech_c)) 
-	{
-		$smtech_count=$row['count(ADMNO)'];
-		echo "<br>BTECH count=".$row['count(ADMNO)'];
-	}
-$qry_smca_c="SELECT count(ADMNO) from class_details cd ,current_class cc,hostel_stud_reg h where cc.studid=h.ADMNO and cd.classid=cc.classid  and cd.courseid IN('MCA') AND cd.semid in(3,4) and h.priority2f=1 AND h.admn_status='submitted'";
-$res_smca_c=mysqli_query($con,$qry_smca_c);
-while ($row=mysqli_fetch_assoc($res_smca_c)) 
-	{
-		$mca_count=$row['count(ADMNO)'];
-		echo "<br>BARCH count=".$row['count(ADMNO)'];
-	}
-if ($p1vacancy) {
-	
-	$stotal_count=$smca_count+$smtech_count;
-
-	$smtech_vacancy=floor(($smtech_count/$stotal_count)*$p1vacancy);
-	echo "<br>btech vacancy".$smtech_vacancy;
-	$smca_vacancy=floor(($smca_count/$stotal_count)*$p1vacancy);
-	echo "<br>barch vacancy".$smca_vacancy;
-
-$qrysp2f="SELECT * from stud_details sd,class_details cd ,current_class cc,hostel_stud_reg h where sd.admissionno=h.ADMNO and cc.studid=h.ADMNO and cd.classid=cc.classid  and cd.courseid IN('MTECH','MCA') AND cd.semid IN (3,4)and h.priority2d=1 AND h.admn_status='submitted'";
-$res_sp2f=mysqli_query($con,$qrysp2f);
-	while ($row=mysqli_fetch_assoc($res_sp2f)) 
-	{
-		if($smtech_vacancy>0 and $p1vacancy>0)
-		{
-			echo'hi';
-			if ($row['courseid']=='BTECH') 
-			{
-				$qry_up_smtech="UPDATE hostel_stud_reg set admn_status='ranked' where ADMNO='".$row['ADMNO']."'";
-				$res_up_smtech=mysqli_query($con,$qry_up_smtech);
-				if ($res_up_smtech)
-				{
-					echo '<br>Name='.$row['name'];
-					echo"<br>PH=".$row['ADMNO'].'&nbsp rank='.$rank.'&nbsp vacancy='.$p1vacancy.'&nbsp &nbsp..... NMAE='.$row['name'];
-					$rank+=1;
-					$smtech_vacancy-=1;
-					$p1vacancy-=1;
-				}
-				
-			}
-		}
-		if($smca_vacancy>0 and $p1vacancy>0)
-		{
-			echo "hello";
-			if ($row['courseid']=='BARCH') 
-			{
-
-				$qry_up_smca="UPDATE hostel_stud_reg set admn_status='ranked' where ADMNO='".$row['ADMNO']."'";
-				$res_up_smca=mysqli_query($con,$qry_up_smca);
-				if ($res_up_smca)
-				 {
-					echo '<br>Name='.$row['name'];
-					echo"<br>PH=".$row['ADMNO'].'&nbsp rank='.$rank.'&nbsp vacancy='.$p1vacancy.'&nbsp &nbsp..... NMAE='.$row['name'];
-					$rank+=1;
-					$smca_vacancy-=1;
-					$p1vacancy-=1;
-				}
-				
-			}
-		
-		echo '<br>Name='.$row['name'];
-
-	   	}
-	   }
-	}
-}
-}
-}}
- /*....................................................priority IIf.................................................*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*...........................................PRIORITY BASED RANKING................................................*/
  ?>

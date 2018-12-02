@@ -5,7 +5,7 @@
  </head>
  <body>
  <?php
-	include("../header.html");
+	include("adminhome.php");
 	include('../connection.php');
 		
 	?>

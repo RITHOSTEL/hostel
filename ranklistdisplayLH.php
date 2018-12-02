@@ -1,7 +1,6 @@
 <!DOCTYPE html>
  <html>
  <head>
-
  	<title></title>
  </head>
  <body>
@@ -31,7 +30,7 @@
 				</td>
 				</tr>
 		</table>
-		<!--<div id="rfm"><h3>RANK LIST</h3></div>
+		<div id="rfm"><h3>RANK LIST</h3></div>
 		<div class="col-auto" style=" height:300px;overflow-x: scroll; display:block;overflow-y:scroll; ">
 		<div class="table-responsive-lg">
 			
@@ -55,16 +54,17 @@
 		<th>Merit Metric</th>
 		<th>Distance & merit metric</th>
 		<th>Admission status</th>
+		<th>Rank</th>
 		
 	</tr>
 	</thead>
 	<?php
-	/*include("../connection.php");
+	include("../connection.php");
 	/*.......status have to be check whether ranked*/
-/*$qry_rank="SELECT * from hostel_stud_reg hsr 
+$qry_rank="SELECT * from hostel_stud_reg hsr 
 LEFT JOIN stud_details sd  ON sd.admissionno=hsr.ADMNO
 LEFT JOIN current_class cc ON cc.studid=sd.admissionno 
-LEFT JOIN class_details cd ON cd.classid=cc.classid where hsr.admn_status in ('ranked') and sd.gender='F' order by hsr.admn_status asc ";
+LEFT JOIN class_details cd ON cd.classid=cc.classid where hsr.admn_status in ('ranked') and sd.gender='F' order by hsr.final_rank ";
 
 
 
@@ -74,7 +74,7 @@ LEFT JOIN class_details cd ON cd.classid=cc.classid where hsr.admn_status in ('r
 	//print_r($qry_rank);
 	/*$qry_rank="select distinct * from hostel_stud_reg hsr,hostel_student_details hsd where (select name from stud_details sd where sd.admissionno=hsr.ADMNO)and hsr.admn_status in ('submitted','allocated') or hsd.ADMNO=hsr.ADMNO";*/
 	/*"select * from hostel_student_details,hostel_stud_reg,stud_details where ";*/
-/*$res_rank=mysqli_query($con,$qry_rank);
+$res_rank=mysqli_query($con,$qry_rank);
 $rec=mysqli_num_rows($res_rank);
 if ($rec==0) {
 	echo '<h3>No records found</h3>';
@@ -102,11 +102,12 @@ while ( $row= mysqli_fetch_assoc($res_rank)) {?>
 				<td><?php echo $row['rank_metric'];?></td>
 				<td> <?php echo $row['hos_rank'];?></td>
 				<td> <?php echo $row['admn_status'];?></td>
+				<td> <?php echo $row['final_rank'];?></td>
 				
 			</tr>
 			<?php }
 			
-			mysqli_close($con);*/
+			mysqli_close($con);
  			?>
  			</tbody>
  			</tr>
@@ -115,6 +116,6 @@ while ( $row= mysqli_fetch_assoc($res_rank)) {?>
 </div>
 </div>
 </form>
-</div>-->
+</div>
 </body>
 </html>
